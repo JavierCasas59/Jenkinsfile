@@ -1,23 +1,24 @@
-import sys
+import unittest
+from calculadora import Calculadora
 
-class Calculadora:
-    def multiplicar(self, a, b):
-        return a * b
+
+class TestCalculadora(unittest.TestCase):
+
+    def setUp(self):
+        self.calc = Calculadora()
+
+    def test_multiplicar_positivos(self):
+        self.assertEqual(self.calc.multiplicar(2, 3), 6)
+
+    def test_multiplicar_por_cero(self):
+        self.assertEqual(self.calc.multiplicar(5, 0), 0)
+
+    def test_multiplicar_negativos(self):
+        self.assertEqual(self.calc.multiplicar(-2, -4), 8)
+
+    def test_multiplicar_mixto(self):
+        self.assertEqual(self.calc.multiplicar(-3, 5), -15)
+
 
 if __name__ == "__main__":
-    calc = Calculadora()
-
-    try:
-        if len(sys.argv) == 3:
-            num1 = float(sys.argv[1])
-            num2 = float(sys.argv[2])
-        else:
-            print("Modo interactivo:")
-            num1 = float(input("Introduce el primer número: "))
-            num2 = float(input("Introduce el segundo número: "))
-
-        resultado = calc.multiplicar(num1, num2)
-        print(f"Resultado: {resultado}")
-
-    except ValueError:
-        print("Error: debes introducir números válidos")
+    unittest.main()
